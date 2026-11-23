@@ -15,7 +15,8 @@ public class OrderService
         try
         {
             // BUG: customerName null olabilir, null check yok
-            var shortName = customerName.Substring(0, Math.Min(10, customerName.Length));
+            var name = customerName ?? "Unknown";
+            var shortName = name.Substring(0, Math.Min(10, name.Length));
 
             RequestCounter.WithLabels("success").Inc();
             return new OrderResult(true, $"Order processed for {shortName}, amount: {amount:C}");
